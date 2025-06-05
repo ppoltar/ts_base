@@ -5,7 +5,7 @@ build:
 
 test:
 	docker run --rm \
-		-v $(PWD)/playwright-reports:/app/playwright-report \
+		-v $(PWD)/playwright-report:/app/playwright-report \
 		-v $(PWD)/test-results:/app/test-results \
 		-e IS_DOCKER=true \
 		login-test
