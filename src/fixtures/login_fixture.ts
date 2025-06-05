@@ -15,7 +15,7 @@ export const test = pageTest.extend<sauceLoginFixture>({
   testOptions: { username: '', password: '' },
   sauceLoginPage: async ({testOptions, page}, use) => {
     const sauceDemoPage = new SauceLoginPage(page);
-    await sauceDemoPage.goto()
+    await sauceDemoPage.open()
     await sauceDemoPage.login(testOptions.username, testOptions.password)
     await use(sauceDemoPage)
   }

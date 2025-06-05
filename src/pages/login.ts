@@ -1,6 +1,7 @@
 import {Page, Locator} from '@playwright/test'
-import {BASED_URLS} from '../config/urls.ts';
+import {BASE_URLS} from '../config/urls.ts';
 import { BasePage } from './base.ts';
+import {SAUCE_LOGIN_LOCATORS} from "../locators/login.locators.ts";
 
 export class SauceLoginPage extends BasePage{
   readonly url: string;
@@ -10,17 +11,16 @@ export class SauceLoginPage extends BasePage{
 
   constructor(page: Page) {
     super(page)
-    this.url = BASED_URLS.sauceLogin;
+    this.url = BASE_URLS.sauceLogin;
 
-    this.username = page.getByTestId("username")
-    this.password = page.getByTestId("password")
-    this.login_button = page.getByTestId("login-button")
+    this.username = page.getByTestId(SAUCE_LOGIN_LOCATORS.username)
+    this.password = page.getByTestId(SAUCE_LOGIN_LOCATORS.password)
+    this.login_button = page.getByTestId(SAUCE_LOGIN_LOCATORS.loginButton)
 
   }
 
-  async goto(url = this.url){
-    await this.page.goto(url);
-    await this.page.waitForURL(url)
+  async open() {
+    await this.goto(this.url);
   }
 
   async login(username: string, password: string){

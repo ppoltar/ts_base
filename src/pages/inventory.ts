@@ -1,6 +1,7 @@
 import {Page, Locator} from '@playwright/test'
-import {BASED_URLS} from '../config/urls.ts';
+import {BASE_URLS} from '../config/urls.ts';
 import {BasePage} from './base.ts';
+import { SAUCE_INVENTORS_LOCATORS } from "../locators/inventory.locators.ts";
 
   export class SauceInventoryPage extends BasePage {
     readonly url: string;
@@ -8,12 +9,9 @@ import {BasePage} from './base.ts';
 
     constructor(page: Page) {
       super(page)
-      this.url = BASED_URLS.sauceInventory;
+      this.url = BASE_URLS.sauceInventory;
 
-      this.pageTitle = page.getByText("Swag Labs")
+      this.pageTitle = page.getByText(SAUCE_INVENTORS_LOCATORS.title)
     }
 
-    async open() {
-      await this.goto(this.url);
-    }
   }
