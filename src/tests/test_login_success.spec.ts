@@ -1,12 +1,10 @@
     import { test } from '../fixtures/login_fixture.ts';
     import {expect} from '@playwright/test';
     import { SauceInventoryPage } from '../pages/inventory.ts';
+    import { Users } from "../config/users.ts";
 
     test.use({
-      testOptions:{
-        username: "standard_user",
-        password: "secret_sauce"
-      }
+      testOptions: Users.standard
     })
 
 

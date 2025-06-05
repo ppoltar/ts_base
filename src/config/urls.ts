@@ -1,6 +1,7 @@
 
+  const  BASE_URL = 'https://www.saucedemo.com';
 
   export const BASE_URLS = {
-    sauceLogin: 'https://www.saucedemo.com',
-    sauceInventory: 'https://www.saucedemo.com/inventory.html'
-  }
+    login: `${BASE_URL}`,
+    inventory: `${BASE_URL}/inventory.html`
+  };

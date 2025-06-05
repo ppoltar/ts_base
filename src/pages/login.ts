@@ -11,7 +11,7 @@ export class SauceLoginPage extends BasePage{
 
   constructor(page: Page) {
     super(page)
-    this.url = BASE_URLS.sauceLogin;
+    this.url = BASE_URLS.login;
 
     this.username = page.getByTestId(SAUCE_LOGIN_LOCATORS.username)
     this.password = page.getByTestId(SAUCE_LOGIN_LOCATORS.password)

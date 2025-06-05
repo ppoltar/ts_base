@@ -1,5 +1,6 @@
 import { SauceLoginPage } from '../pages/login.ts';
 import {test as pageTest} from '@playwright/test'
+import { Users } from "../config/users.ts";
 
 export type TestOptions = {
   username:string,
@@ -12,7 +13,7 @@ type sauceLoginFixture = {
 }
 
 export const test = pageTest.extend<sauceLoginFixture>({
-  testOptions: { username: '', password: '' },
+  testOptions: Users.standard,
   sauceLoginPage: async ({testOptions, page}, use) => {
     const sauceDemoPage = new SauceLoginPage(page);
     await sauceDemoPage.open()

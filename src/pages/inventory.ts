@@ -9,7 +9,7 @@ import { SAUCE_INVENTORS_LOCATORS } from "../locators/inventory.locators.ts";
 
     constructor(page: Page) {
       super(page)
-      this.url = BASE_URLS.sauceInventory;
+      this.url = BASE_URLS.inventory;
 
       this.pageTitle = page.getByText(SAUCE_INVENTORS_LOCATORS.title)
     }
