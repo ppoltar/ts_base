@@ -7,17 +7,27 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build:
+    name: 🐳 Build Docker Image
     runs-on: ubuntu-latest
-
+    outputs:
+      image-tag: login-test
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🐳 Build Docker image
         run: docker build -t login-test .
 
-      - name: 🧪 Run Playwright tests in Docker
+  test:
+    name: 🧪 Run Login Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🧪 Run tests in Docker
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/test-results:/app/test-results \
@@ -25,14 +35,22 @@ jobs:
             -e DOCKER=true \
             login-test
 
-      - name: 📦 Upload test results (optional)
-        uses: actions/upload-artifact@v3
+  upload:
+    name: 📤 Upload Reports
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📦 Upload test results
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test-results
 
-      - name: 📦 Upload HTML report (optional)
-        uses: actions/upload-artifact@v3
+      - name: 📦 Upload HTML report
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-html-report
           path: playwright-report
