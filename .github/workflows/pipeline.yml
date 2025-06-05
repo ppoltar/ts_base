@@ -47,10 +47,6 @@ jobs:
       - name: 🧪 Run tests in Docker container
         run: make test
 
-      - name: List contents of reports folder
-        run: ls -R playwright-report
-
-
   upload:
     name: 📤 Upload Reports
     runs-on: ubuntu-latest
