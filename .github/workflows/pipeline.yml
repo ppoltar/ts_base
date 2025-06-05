@@ -76,9 +76,6 @@ jobs:
           name: playwright-report
           path: .
 
-      - name: Check contents of downloaded
-        run: ls -R playwright-report
-
       - name: 🚀 Deploy Playwright Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
