@@ -9,7 +9,7 @@
     workers: 1,
     reporter: isCI
     ? [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]] // In CI: generate report but don't open it
-    : [['list'], ['html']], // Locally
+    : [['list'], ['html', { outputFolder: 'playwright-report'}]], // Locally
 
     use: {
       headless: isCI ? true : false,
