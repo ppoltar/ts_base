@@ -7,10 +7,10 @@
     timeout: 30_000,
     retries: isCI ? 2 : 0,    //Avoid unnecessary retries locally
     workers: 1,
-    reporter: [
-      ['list'],                     // console output
-      ['html', { open: 'always' }], // generates html report, open automatically
-    ],
+    reporter: isCI
+    ? [['list'], ['html', { open: 'never' }]] // In CI: generate report but don't open it
+    : [['list'], ['html', { open: 'on-failure' }]], // Locally: open report only if tests fail
+
     use: {
       headless: isCI ? true : false,
       screenshot: isCI ? 'on' : 'on',
