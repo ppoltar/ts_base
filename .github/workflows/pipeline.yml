@@ -19,6 +19,15 @@ jobs:
       - name: 🐳 Build Docker image
         run: docker build -t login-test .
 
+      - name: Save Docker image to tarball
+        run: docker save login-test:latest -o login-test.tar
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-test-image
+          path: login-test.tar
+
   test:
     name: 🧪 Run Login Tests
     runs-on: ubuntu-latest
@@ -27,7 +36,15 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🧪 Run tests in Docker
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: login-test-image
+
+      - name: Load Docker image from tarball
+        run: docker load -i login-test.tar
+
+      - name: 🧪 Run tests in Docker container
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/test-results:/app/test-results \
