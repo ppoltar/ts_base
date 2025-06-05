@@ -8,15 +8,15 @@
     retries: isCI ? 2 : 0,    //Avoid unnecessary retries locally
     workers: 1,
     reporter: isCI
-    ? [['list'], ['html', { open: 'never' }]] // In CI: generate report but don't open it
-    : [['list'], ['html', { open: 'on-failure' }]], // Locally: open report only if tests fail
+    ? [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]] // In CI: generate report but don't open it
+    : [['list'], ['html']], // Locally
 
     use: {
       headless: isCI ? true : false,
-      screenshot: isCI ? 'on' : 'on',
+      screenshot: 'on',
       video:  isCI ? 'retain-on-failure' : 'on',
       testIdAttribute: 'data-test',
-      trace: isCI ? 'retain-on-failure' : 'on',
+      trace: 'on',
     },
 
   });
