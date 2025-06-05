@@ -1,0 +1,38 @@
+name: Login Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🐳 Build Docker image
+        run: docker build -t login-test .
+
+      - name: 🧪 Run Playwright tests in Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            -v ${{ github.workspace }}/playwright-report:/app/playwright-report \
+            -e DOCKER=true \
+            login-test
+
+      - name: 📦 Upload test results (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results
+
+      - name: 📦 Upload HTML report (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-html-report
+          path: playwright-report
