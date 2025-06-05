@@ -19,7 +19,7 @@ jobs:
       - name: 🐳 Build Docker image
         run: docker build -t login-test .
 
-      - name: Save Docker image to tarball
+      - name: Save Docker image
         run: docker save login-test:latest -o login-test.tar
 
       - name: Upload Docker image artifact
@@ -41,14 +41,14 @@ jobs:
         with:
           name: login-test-image
 
-      - name: Load Docker image from tarball
+      - name: Load Docker image
         run: docker load -i login-test.tar
 
       - name: 🧪 Run tests in Docker container
         run: make test
 
       - name: List contents of reports folder
-        run: ls -R reports
+        run: ls -R playwright-report
 
 
   upload:
